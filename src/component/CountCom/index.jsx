@@ -1,30 +1,23 @@
 import React, { Component } from 'react'
-
+import store from "../../redux/store.js"
 export default class CountCom extends Component {
     state={
         count:0
     }
+
     increment = () => {
         const {value}=this.selectNumber
-        const {count}=this.state
-        this.setState({
-            count:count+value*1
-        })
+        store.dispatch({type:'increment',data:value*1})
     }
     decrement = () => {
         const {value}=this.selectNumber
-        const {count}=this.state
-        this.setState({
-            count:count-value*1
-        })
+        store.dispatch({type:'decrement',data:value*1})
     }
     incrementIfOdd = () => {
         const {value}=this.selectNumber
-        const {count}=this.state
+        const count=store.getState()
         if(count*1%2===0){
-            this.setState({
-                count:count+value*1
-            })
+            store.dispatch({type:'increment',data:value*1})
         }
         
     }
@@ -41,7 +34,7 @@ export default class CountCom extends Component {
         return (
             <div>
                 <div>
-                    和:{this.state.count}
+                    和:{store.getState()}
                 </div>
                 <select ref={c=>this.selectNumber=c}>
                     <option value="1">1</option>
