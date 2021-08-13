@@ -1,22 +1,13 @@
 import CountUI from "../../component/CountCom"
-import {connect} from "react-redux"
-import {createIncrementAction,createDecrementAction,createIncrementAsyncAction} from "../../redux/count_action"
-function mapStateToProps(state){
-    return {count:state}
-}
+import { connect } from "react-redux"
+import { createIncrementAction, createDecrementAction, createIncrementAsyncAction } from "../../redux/count_action"
 
-function mapDispatchToProps(dispatch){
-    return {
-        add:(value)=>{
-            dispatch(createIncrementAction(value))
-        },
-        subtract:(value)=>{
-            dispatch(createDecrementAction(value))
-        },
-        asyncAdd:(value,time)=>{
-            dispatch(createIncrementAsyncAction(value,time))
-        }
+
+export default connect(
+    state => ({ count: state }),
+    {
+        add: dispatchcreateIncrementAction,
+        subtract: createDecrementAction,
+        asyncAdd: createIncrementAsyncAction
     }
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(CountUI)
+)(CountUI)
