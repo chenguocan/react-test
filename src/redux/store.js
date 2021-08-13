@@ -1,5 +1,5 @@
-import { createStore } from "redux"
+import { applyMiddleware, createStore } from "redux"
 import countReducer from "./count_reducer"
-
-export default createStore(countReducer)
+import thunk from "redux-thunk"
+export default createStore(countReducer,applyMiddleware(thunk))
 

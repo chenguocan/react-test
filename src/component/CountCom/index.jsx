@@ -1,34 +1,29 @@
 import React, { Component } from 'react'
 import store from "../../redux/store.js"
+import { createIncrementAction, createDecrementAction, createIncrementAsyncAction } from "../../redux/count_action"
 export default class CountCom extends Component {
-    state={
-        count:0
+    state = {
+        count: 0
     }
 
     increment = () => {
-        const {value}=this.selectNumber
-        store.dispatch({type:'increment',data:value*1})
+        const { value } = this.selectNumber
+        store.dispatch(createIncrementAction(value * 1))
     }
     decrement = () => {
-        const {value}=this.selectNumber
-        store.dispatch({type:'decrement',data:value*1})
+        const { value } = this.selectNumber
+        store.dispatch(createDecrementAction(value * 1))
     }
     incrementIfOdd = () => {
-        const {value}=this.selectNumber
-        const count=store.getState()
-        if(count*1%2===0){
-            store.dispatch({type:'increment',data:value*1})
+        const { value } = this.selectNumber
+        const count = store.getState()
+        if (count * 1 % 2 === 0) {
+            store.dispatch(createIncrementAction(value * 1))
         }
-        
     }
     incrementAsync = () => {
-        const {value}=this.selectNumber
-        const {count}=this.state
-        setTimeout(()=>{
-            this.setState({
-                count:count+value*1
-            })
-        },500)
+        const { value } = this.selectNumber
+        store.dispatch(createIncrementAsyncAction(value * 1, 500))
     }
     render() {
         return (
@@ -36,7 +31,7 @@ export default class CountCom extends Component {
                 <div>
                     和:{store.getState()}
                 </div>
-                <select ref={c=>this.selectNumber=c}>
+                <select ref={c => this.selectNumber = c}>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
