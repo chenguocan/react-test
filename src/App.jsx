@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import CountCom from "./component/CountCom"
-
+import CountCom from "./containers/CountCom"
+import store from "./redux/store"
 class App extends Component {
 
   render() {
     return (
       <div>
-        <CountCom />
+        <CountCom store={store}/>
       </div>
     )
   }

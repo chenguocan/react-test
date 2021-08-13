@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import store from "../../redux/store.js"
-import { createIncrementAction, createDecrementAction, createIncrementAsyncAction } from "../../redux/count_action"
 export default class CountCom extends Component {
     state = {
         count: 0
@@ -8,28 +6,29 @@ export default class CountCom extends Component {
 
     increment = () => {
         const { value } = this.selectNumber
-        store.dispatch(createIncrementAction(value * 1))
+        this.props.add(value * 1)
     }
     decrement = () => {
         const { value } = this.selectNumber
-        store.dispatch(createDecrementAction(value * 1))
+        this.props.subtract(value * 1)
     }
     incrementIfOdd = () => {
         const { value } = this.selectNumber
-        const count = store.getState()
-        if (count * 1 % 2 === 0) {
-            store.dispatch(createIncrementAction(value * 1))
+        const { count } = this.props
+        if (count % 2 === 0) {
+            this.props.add(value * 1)
         }
     }
     incrementAsync = () => {
         const { value } = this.selectNumber
-        store.dispatch(createIncrementAsyncAction(value * 1, 500))
+        this.props.asyncAdd(value * 1, 500)
     }
     render() {
+        console.log(this.props)
         return (
             <div>
                 <div>
-                    和:{store.getState()}
+                    和:{this.props.count}
                 </div>
                 <select ref={c => this.selectNumber = c}>
                     <option value="1">1</option>
